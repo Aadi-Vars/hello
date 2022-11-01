@@ -11,7 +11,6 @@ from kivy.lang.builder import Builder
 from kivy.config import Config
 from kivy.uix.popup import Popup
 import requests
-import time
 Config.set('kivy', 'exit_on_escape', '0')
 win_size=Window.size
 Window.clearcolor=(1,1,1,1)
@@ -42,14 +41,7 @@ class paper_sub_scn(Screen):
 class paper_scn(Screen):
 	
 	def submit(self):
-		global sm,end_time,start_time
-		end_time=time.time()
-		
-		spend_time=end_time-start_time
-		spend_time=round(spend_time/60,3)
-		
-		popup=Popup(title="Completed!!",content=Label(text="You Spend "+str(spend_time)+" minutes"),size_hint=(None,None),size=(Window.width*0.8,Window.height*0.2))
-		popup.open()
+		global sm
 		
 		try:
 			data=requests.get("https://raw.githubusercontent.com/Aadi-Vars/se.apk/Main/txt/se_submit.txt").text.split("\n")
@@ -328,9 +320,9 @@ class main(App):
 		selected_language=str(btn.text)
 		
 	def paper_scn_build(self,btn):
-		global sm,undertaking_check,start_time
+		global sm,undertaking_check
 		
-		start_time=time.time()
+		
 		if undertaking_check.active==False:
 			popup=Popup(title="Oops!!",content=(Label(text="You have not check the undertaking")),size_hint=(None,None,),size=(win_size[0]*0.7,win_size[1]*0.2))
 			popup.open()
